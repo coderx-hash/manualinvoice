@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sales Invoice - CompleteSolution Pharmacy Inc.</title>
+    <style>
+        /* --- A4 Setup --- */
+        @page {
+            size: A4;
+            margin: 10mm;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            margin: 0;
+            padding: 20px;
+            background-color: #555; /* Dark background for screen */
+            display: flex;
+            justify-content: center;
+        }
+        .a4-container {
+            width: 210mm;
+            min-height: 297mm;
+            background: white;
+            padding: 20mm;
+            box-sizing: border-box;
+            box-shadow: 0 0 15px rgba(0,0,0,0.5);
+            position: relative;
+        }
+
+        /* --- Typography & Alignment --- */
+        .text-center { text-align: center; }
+        .text-right { text-align: right; }
+        .bold { font-weight: bold; }
+        .red-text { color: red; }
+
+        /* --- Header --- */
+        .header h1 { margin: 0; font-size: 20px; font-weight: bold; }
+        .header p { margin: 2px 0; font-size: 11px; }
+        .invoice-title {
+            color: red;
+            font-size: 24px;
+            font-weight: bold;
+            text-align: right;
+            margin-top: -30px;
+        }
+
+        /* --- Editable Elements --- */
+        [contenteditable="true"] {
+            border-bottom: 1px dashed #999;
+            min-width: 50px;
+            display: inline-block;
+            outline: none;
+            padding: 0 2px;
+        }
+        [contenteditable="true"]:focus { background-color: #eef; }
+        input[type="checkbox"] { margin-right: 5px; }
+
+        /* --- Layout Utility --- */
+        .flex-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px; /* Spacing para hindi magdikit */
+            align-items: flex-end;
+        }
+        .section-spacing { margin-top: 20px; margin-bottom: 20px; }
+
+        /* --- Table Styling --- */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td { border: 1px solid black; }
+        th {
+            padding: 8px 5px;
+            background-color: #f9f9f9;
+            font-size: 11px;
+        }
+        td {
+            padding: 6px;
+            vertical-align: top;
+        }
+        .table-input {
+            width: 100%;
+            border: none;
+            outline: none;
+            box-sizing: border-box;
+            min-height: 16px;
+        }
+
+        /* --- Action Buttons (Add/Remove) --- */
+        .action-btns {
+            display: flex;
+            gap: 5px;
+            justify-content: center;
+        }
+        .btn {
+            cursor: pointer;
+            padding: 2px 6px;
+            font-size: 12px;
+            border: 1px solid #ccc;
+            background: #eee;
+            border-radius: 3px;
+        }
+        .btn:hover { background: #ddd; }
+        .btn-add { color: green; font-weight: bold; }
+        .btn-remove { color: red; font-weight: bold; }
+
+        /* --- Footer Section --- */
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 55% 42%;
+            gap: 3%;
+        }
+        .footer-left p, .footer-left div { margin-bottom: 8px; }
+        
+        .totals-table td { padding: 5px 8px; }
+        .totals-table td:first-child { text-align: right; width: 65%; }
+
+        .printer-info {
+            font-size: 9px;
+            margin-top: 40px;
+            line-height: 1.3;
+        }
+        .signature-line {
+            display: inline-block;
+            border-bottom: 1px solid black;
+            width: 80%;
+            margin-bottom: 5px;
+        }
+
+        /* --- PRINT MEDIA QUERY (Hides buttons and dashed lines when printing) --- */
+        @media print {
+            body { background-color: white; padding: 0; }
+            .a4-container { box-shadow: none; padding: 15mm; margin: 0; width: 100%; min-height: 100%; }
+            [contenteditable="true"] { border-bottom: 1px solid transparent; }
+            .no-print { display: none !important; }
+            th, td { border: 1px solid black !important; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="a4-container">
+    
+    <div class="header text-center">
+        <h1>COMPLETESOLUTION PHARMACY INC.</h1>
+        <p>VAT Reg. TIN: 008-338-284-00002</p>
+        <p>Unit B 1330 Perez St., Barangay 674 Zone 73 District V 1007</p>
+        <p>Paco NCR, City of Manila, First District Philippines</p>
+    </div>
+    
+    <div class="invoice-title">SALES INVOICE</div>
+    
+    <div class="flex-row" style="justify-content: flex-end; margin-top: 15px;">
+        <div class="red-text bold" style="font-size: 16px;">
+            No. <span contenteditable="true" style="width: 100px;">3687</span>
+        </div>
+    </div>
+    
+    <div class="flex-row">
+        <div>
+            <label><input type="checkbox"> CASH SALES</label> &nbsp;&nbsp;&nbsp;
+            <label><input type="checkbox"> CHARGE SALES</label>
+        </div>
+    </div>
+
+    <div class="section-spacing">
+        <div class="flex-row">
+            <div style="flex: 2;"><strong>SOLD TO:</strong> <span contenteditable="true" style="width: 75%;"></span></div>
+            <div style="flex: 1;"><strong>DATE:</strong> <span contenteditable="true" style="width: 75%;"></span></div>
+        </div>
+        <div class="flex-row">
+            <div style="flex: 2;"><strong>Registered Name:</strong> <span contenteditable="true" style="width: 65%;"></span></div>
+            <div style="flex: 1;"><strong>Terms:</strong> <span contenteditable="true" style="width: 73%;"></span></div>
+        </div>
+        <div class="flex-row">
+            <div style="flex: 2;"><strong>TIN:</strong> <span contenteditable="true" style="width: 83%;"></span></div>
+            <div style="flex: 1;"><strong>Reference no.:</strong> <span contenteditable="true" style="width: 60%;"></span></div>
+        </div>
+        <div class="flex-row">
+            <div style="flex: 1;"><strong>Business Address:</strong> <span contenteditable="true" style="width: 83%;"></span></div>
+        </div>
+    </div>
+
+    <div class="section-spacing">
+        <table id="invoice-table" oninput="calculateTotals()">
+            <thead>
+                <tr>
+                    <th style="width: 35%;">Item Description / Nature of Service</th>
+                    <th style="width: 15%;">Lot Number</th>
+                    <th style="width: 12%;">Expiry Date</th>
+                    <th style="width: 10%;">Quantity</th>
+                    <th style="width: 12%;">Unit Price</th>
+                    <th style="width: 14%;">AMOUNT</th>
+                    <th class="no-print" style="width: 8%;">Action</th>
+                </tr>
+            </thead>
+            <tbody id="items-body">
+                <tr class="item-row">
+                    <td><div contenteditable="true" class="table-input"></div></td>
+                    <td><div contenteditable="true" class="table-input text-center"></div></td>
+                    <td><div contenteditable="true" class="table-input text-center"></div></td>
+                    <td><div contenteditable="true" class="table-input text-center qty"></div></td>
+                    <td><div contenteditable="true" class="table-input text-right price"></div></td>
+                    <td><div contenteditable="true" class="table-input text-right amt bold"></div></td>
+                    <td class="no-print action-btns">
+                        <button class="btn btn-add" onclick="addRow(this)" title="Add Row">+</button>
+                        <button class="btn btn-remove" onclick="removeRow(this)" title="Remove Row">-</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section-spacing footer-grid">
+        
+        <div class="footer-left">
+            <div class="flex-row" style="margin-bottom: 5px;">
+                <div style="width: 55%;">VATable Sales</div>
+                <div contenteditable="true" style="width: 40%; text-align: right;"></div>
+            </div>
+            <div class="flex-row" style="margin-bottom: 5px;">
+                <div style="width: 55%;">VAT</div>
+                <div contenteditable="true" style="width: 40%; text-align: right;"></div>
+            </div>
+            <div class="flex-row" style="margin-bottom: 5px;">
+                <div style="width: 55%;">Zero-Rated Sales</div>
+                <div contenteditable="true" style="width: 40%; text-align: right;"></div>
+            </div>
+            <div class="flex-row" style="margin-bottom: 15px;">
+                <div style="width: 55%;">VAT-Exempt Sales</div>
+                <div contenteditable="true" style="width: 40%; text-align: right;"></div>
+            </div>
+            
+            <div>Received the amount of <span contenteditable="true" style="width: 55%;"></span></div>
+            <div>SC/PWD/NAAC/MOV/ Solo Parent ID No.: <span contenteditable="true" style="width: 40%;"></span></div>
+            <div style="margin-bottom: 20px;">Signature: <span contenteditable="true" style="width: 75%;"></span></div>
+            
+            <div class="flex-row" style="margin-bottom: 20px;">
+                <div>PREPARED BY: <span contenteditable="true" style="width: 100px;"></span></div>
+                <div>CHECKED BY: <span contenteditable="true" style="width: 100px;"></span></div>
+            </div>
+            
+            <div style="margin-bottom: 30px;">DELIVERED BY: <span contenteditable="true" style="width: 70%;"></span></div>
+            
+            <div class="text-center">
+                <span class="signature-line" contenteditable="true"></span><br>
+                Cashier/Authorized Representative<br>
+                <span style="font-size: 10px;">(Received the above goods in good order and condition)</span>
+            </div>
+        </div>
+
+        <div class="footer-right">
+            <table class="totals-table" oninput="calculateTotals()">
+                <tr>
+                    <td>Total Sales (VAT Inclusive)</td>
+                    <td><div contenteditable="true" class="table-input text-right bold" id="total-sales">0.00</div></td>
+                </tr>
+                <tr>
+                    <td>Less: VAT</td>
+                    <td><div contenteditable="true" class="table-input text-right" id="less-vat">0.00</div></td>
+                </tr>
+                <tr>
+                    <td>Amount: Net of VAT</td>
+                    <td><div contenteditable="true" class="table-input text-right" id="net-vat">0.00</div></td>
+                </tr>
+                <tr>
+                    <td>Less: Discount<br><span style="font-size:10px;">(SC/PWD/NAAC/MOV/SP)</span></td>
+                    <td><div contenteditable="true" class="table-input text-right" id="discount">0.00</div></td>
+                </tr>
+                <tr>
+                    <td>Add: VAT</td>
+                    <td><div contenteditable="true" class="table-input text-right" id="add-vat">0.00</div></td>
+                </tr>
+                <tr>
+                    <td>Less: Withholding Tax</td>
+                    <td><div contenteditable="true" class="table-input text-right" id="withholding">0.00</div></td>
+                </tr>
+                <tr>
+                    <td class="bold">TOTAL AMOUNT DUE</td>
+                    <td><div contenteditable="true" class="table-input text-right bold" id="total-due" style="font-size: 14px;">0.00</div></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="printer-info">
+        100 bkits. (50 x 4) 0001-5000<br>
+        RLA Doo Sentor Printing Pheron VAT Reg. TIN: 194-783-105-00000<br>
+        ROWENA A DELOS SANTOS-Prop<br>
+        5225 Demetillo, Hen T De Leon 1442 City of Valenzuela NCR, Third District Philippines<br>
+        Printer's Accreditation: 024MP20240000000004<br>
+        Date of Accreditation: 02/22/2026 Expiry Date: 02/21/2029<br>
+        BIR Permit No. OCN 034AU20240000004487<br>
+        Date of ATP: 11/20/24<br>
+        By: <span contenteditable="true" style="width: 100px;"></span>
+    </div>
+
+</div>
+
+<script>
+    // --- ROW MANAGEMENT ---
+    function addRow(btn) {
+        const currentRow = btn.closest('tr');
+        const newRow = currentRow.cloneNode(true);
+        
+        // Linisin ang laman ng bagong row
+        newRow.querySelectorAll('.table-input').forEach(div => {
+            div.innerText = '';
+        });
+        
+        // I-insert sa ibaba ng kasalukuyang row
+        currentRow.parentNode.insertBefore(newRow, currentRow.nextSibling);
+        calculateTotals();
+    }
+
+    function removeRow(btn) {
+        const tbody = document.getElementById('items-body');
+        // Siguraduhing may matitirang kahit isang row
+        if (tbody.querySelectorAll('tr').length > 1) {
+            btn.closest('tr').remove();
+            calculateTotals();
+        } else {
+            alert("Hindi pwedeng burahin ang lahat ng rows. Dapat may matira kahit isa.");
+        }
+    }
+
+    // --- AUTO COMPUTE LOGIC ---
+    function calculateTotals() {
+        let totalSales = 0;
+        const rows = document.querySelectorAll('.item-row');
+        
+        // 1. Compute Quantity x Unit Price per row
+        rows.forEach(row => {
+            const qtyText = row.querySelector('.qty').innerText.replace(/,/g, '');
+            const priceText = row.querySelector('.price').innerText.replace(/,/g, '');
+            
+            const qty = parseFloat(qtyText);
+            const price = parseFloat(priceText);
+            
+            if (!isNaN(qty) && !isNaN(price)) {
+                const amount = qty * price;
+                row.querySelector('.amt').innerText = amount.toFixed(2);
+                totalSales += amount;
+            } else {
+                // Kung user manually nag-type sa AMOUNT
+                const manualAmt = parseFloat(row.querySelector('.amt').innerText.replace(/,/g, ''));
+                if(!isNaN(manualAmt)) totalSales += manualAmt;
+            }
+        });
+        
+        document.getElementById('total-sales').innerText = totalSales.toFixed(2);
+        
+        // 2. Compute VAT Breakdown (12% standard)
+        const netVat = totalSales / 1.12;
+        const vat = totalSales - netVat;
+        
+        document.getElementById('net-vat').innerText = netVat.toFixed(2);
+        document.getElementById('less-vat').innerText = vat.toFixed(2);
+        
+        // 3. Compute Final Amount Due
+        const discountText = document.getElementById('discount').innerText.replace(/,/g, '');
+        const addVatText = document.getElementById('add-vat').innerText.replace(/,/g, '');
+        const whtText = document.getElementById('withholding').innerText.replace(/,/g, '');
+        
+        const discount = parseFloat(discountText) || 0;
+        const addVat = parseFloat(addVatText) || 0;
+        const wht = parseFloat(whtText) || 0;
+        
+        // Net - Discount + Additional VAT - Withholding
+        let totalDue = netVat - discount + addVat - wht;
+        
+        document.getElementById('total-due').innerText = totalDue.toFixed(2);
+    }
+</script>
+
+</body>
+</html>
