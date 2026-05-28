@@ -15,7 +15,7 @@
             font-size: 12px;
             margin: 0;
             padding: 20px;
-            background-color: #555; /* Dark background for screen */
+            background-color: #525659;
             display: flex;
             justify-content: center;
         }
@@ -23,62 +23,94 @@
             width: 210mm;
             min-height: 297mm;
             background: white;
-            padding: 20mm;
+            padding: 15mm 20mm;
             box-sizing: border-box;
             box-shadow: 0 0 15px rgba(0,0,0,0.5);
             position: relative;
+            display: flex;
+            flex-direction: column;
         }
 
-        /* --- Typography & Alignment --- */
+        /* --- Typography & Utilities --- */
         .text-center { text-align: center; }
         .text-right { text-align: right; }
         .bold { font-weight: bold; }
         .red-text { color: red; }
+        
+        /* Editable Fields */
+        [contenteditable="true"] {
+            border-bottom: 1px dashed #999;
+            min-width: 30px;
+            display: inline-block;
+            outline: none;
+            padding: 1px 2px;
+            font-family: Arial, sans-serif;
+        }
+        [contenteditable="true"]:focus { background-color: #eef; }
 
-        /* --- Header --- */
+        /* --- Header Section --- */
+        .header { margin-bottom: 15px; }
         .header h1 { margin: 0; font-size: 20px; font-weight: bold; }
-        .header p { margin: 2px 0; font-size: 11px; }
+        .header p { margin: 3px 0; font-size: 12px; }
+        
+        .title-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+            border-bottom: 2px solid black;
+        }
         .invoice-title {
             color: red;
             font-size: 24px;
             font-weight: bold;
-            text-align: right;
-            margin-top: -30px;
+            letter-spacing: 1px;
+        }
+        .invoice-no {
+            font-size: 16px;
+            color: red;
+            font-weight: bold;
         }
 
-        /* --- Editable Elements --- */
-        [contenteditable="true"] {
-            border-bottom: 1px dashed #999;
-            min-width: 50px;
-            display: inline-block;
-            outline: none;
-            padding: 0 2px;
+        /* --- Customer Info Grid --- */
+        .sales-type { margin-bottom: 10px; font-weight: bold; }
+        .sales-type label { margin-right: 20px; cursor: pointer; }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: 60% 38%;
+            gap: 2%;
+            margin-bottom: 15px;
         }
-        [contenteditable="true"]:focus { background-color: #eef; }
-        input[type="checkbox"] { margin-right: 5px; }
-
-        /* --- Layout Utility --- */
-        .flex-row {
+        .info-row {
             display: flex;
-            justify-content: space-between;
-            margin-bottom: 8px; /* Spacing para hindi magdikit */
+            margin-bottom: 6px;
             align-items: flex-end;
         }
-        .section-spacing { margin-top: 20px; margin-bottom: 20px; }
+        .info-label {
+            font-weight: bold;
+            margin-right: 5px;
+            white-space: nowrap;
+        }
+        .info-value { flex-grow: 1; }
 
-        /* --- Table Styling --- */
+        /* --- Table Section --- */
         table {
             width: 100%;
             border-collapse: collapse;
+            margin-bottom: 15px;
+            flex-grow: 1;
         }
         table, th, td { border: 1px solid black; }
         th {
-            padding: 8px 5px;
-            background-color: #f9f9f9;
+            padding: 8px 4px;
+            background-color: #f2f2f2;
             font-size: 11px;
+            text-align: center;
         }
         td {
-            padding: 6px;
+            padding: 4px;
             vertical-align: top;
         }
         .table-input {
@@ -86,14 +118,16 @@
             border: none;
             outline: none;
             box-sizing: border-box;
-            min-height: 16px;
+            min-height: 18px;
+            font-family: Arial, sans-serif;
         }
 
-        /* --- Action Buttons (Add/Remove) --- */
+        /* --- Actions (Add/Remove) --- */
         .action-btns {
             display: flex;
             gap: 5px;
             justify-content: center;
+            align-items: center;
         }
         .btn {
             cursor: pointer;
@@ -108,32 +142,58 @@
         .btn-remove { color: red; font-weight: bold; }
 
         /* --- Footer Section --- */
-        .footer-grid {
+        .footer-container {
             display: grid;
-            grid-template-columns: 55% 42%;
-            gap: 3%;
+            grid-template-columns: 50% 48%;
+            gap: 2%;
+            font-size: 11px;
         }
-        .footer-left p, .footer-left div { margin-bottom: 8px; }
         
-        .totals-table td { padding: 5px 8px; }
-        .totals-table td:first-child { text-align: right; width: 65%; }
+        /* Footer Left */
+        .vat-breakdown { margin-bottom: 15px; width: 80%; }
+        .vat-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 4px;
+        }
+        .sign-row { margin-bottom: 10px; }
+        .sign-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 15px;
+        }
 
-        .printer-info {
-            font-size: 9px;
-            margin-top: 40px;
-            line-height: 1.3;
+        /* Footer Right (Totals) */
+        .totals-table { width: 100%; border-collapse: collapse; margin-bottom: 15px; }
+        .totals-table td { padding: 4px 6px; border: 1px solid black; }
+        .totals-table td:first-child { text-align: right; width: 65%; font-weight: bold; }
+        
+        .delivery-section {
+            text-align: center;
+            margin-top: 25px;
         }
         .signature-line {
             display: inline-block;
             border-bottom: 1px solid black;
-            width: 80%;
-            margin-bottom: 5px;
+            width: 90%;
+            margin-bottom: 3px;
+            min-height: 15px;
         }
 
-        /* --- PRINT MEDIA QUERY (Hides buttons and dashed lines when printing) --- */
+        /* --- Printer Info --- */
+        .printer-info {
+            font-size: 9px;
+            line-height: 1.2;
+            margin-top: 20px;
+            border-top: 1px solid #ccc;
+            padding-top: 10px;
+        }
+
+        /* --- PRINT MEDIA QUERY --- */
         @media print {
             body { background-color: white; padding: 0; }
-            .a4-container { box-shadow: none; padding: 15mm; margin: 0; width: 100%; min-height: 100%; }
+            .a4-container { box-shadow: none; padding: 10mm; margin: 0; width: 100%; }
             [contenteditable="true"] { border-bottom: 1px solid transparent; }
             .no-print { display: none !important; }
             th, td { border: 1px solid black !important; }
@@ -144,6 +204,7 @@
 
 <div class="a4-container">
     
+    <!-- HEADER -->
     <div class="header text-center">
         <h1>COMPLETESOLUTION PHARMACY INC.</h1>
         <p>VAT Reg. TIN: 008-338-284-00002</p>
@@ -151,108 +212,141 @@
         <p>Paco NCR, City of Manila, First District Philippines</p>
     </div>
     
-    <div class="invoice-title">SALES INVOICE</div>
-    
-    <div class="flex-row" style="justify-content: flex-end; margin-top: 15px;">
-        <div class="red-text bold" style="font-size: 16px;">
-            No. <span contenteditable="true" style="width: 100px;">3687</span>
+    <div class="title-row">
+        <div class="invoice-title">SALES INVOICE</div>
+        <div class="invoice-no">
+            INVOICE No. <span contenteditable="true" style="width: 80px; text-align: right;">3687</span>
         </div>
     </div>
     
-    <div class="flex-row">
+    <!-- CUSTOMER INFO -->
+    <div class="sales-type">
+        <label><input type="checkbox"> CASH SALES</label>
+        <label><input type="checkbox"> CHARGE SALES</label>
+    </div>
+
+    <div class="info-grid">
+        <!-- Left Side Customer Info -->
         <div>
-            <label><input type="checkbox"> CASH SALES</label> &nbsp;&nbsp;&nbsp;
-            <label><input type="checkbox"> CHARGE SALES</label>
+            <div class="info-row">
+                <span class="info-label">SOLD TO:</span>
+                <span class="info-value" contenteditable="true"></span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Registered Name:</span>
+                <span class="info-value" contenteditable="true"></span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">TIN:</span>
+                <span class="info-value" contenteditable="true"></span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Business Address:</span>
+                <span class="info-value" contenteditable="true"></span>
+            </div>
         </div>
-    </div>
-
-    <div class="section-spacing">
-        <div class="flex-row">
-            <div style="flex: 2;"><strong>SOLD TO:</strong> <span contenteditable="true" style="width: 75%;"></span></div>
-            <div style="flex: 1;"><strong>DATE:</strong> <span contenteditable="true" style="width: 75%;"></span></div>
-        </div>
-        <div class="flex-row">
-            <div style="flex: 2;"><strong>Registered Name:</strong> <span contenteditable="true" style="width: 65%;"></span></div>
-            <div style="flex: 1;"><strong>Terms:</strong> <span contenteditable="true" style="width: 73%;"></span></div>
-        </div>
-        <div class="flex-row">
-            <div style="flex: 2;"><strong>TIN:</strong> <span contenteditable="true" style="width: 83%;"></span></div>
-            <div style="flex: 1;"><strong>Reference no.:</strong> <span contenteditable="true" style="width: 60%;"></span></div>
-        </div>
-        <div class="flex-row">
-            <div style="flex: 1;"><strong>Business Address:</strong> <span contenteditable="true" style="width: 83%;"></span></div>
-        </div>
-    </div>
-
-    <div class="section-spacing">
-        <table id="invoice-table" oninput="calculateTotals()">
-            <thead>
-                <tr>
-                    <th style="width: 35%;">Item Description / Nature of Service</th>
-                    <th style="width: 15%;">Lot Number</th>
-                    <th style="width: 12%;">Expiry Date</th>
-                    <th style="width: 10%;">Quantity</th>
-                    <th style="width: 12%;">Unit Price</th>
-                    <th style="width: 14%;">AMOUNT</th>
-                    <th class="no-print" style="width: 8%;">Action</th>
-                </tr>
-            </thead>
-            <tbody id="items-body">
-                <tr class="item-row">
-                    <td><div contenteditable="true" class="table-input"></div></td>
-                    <td><div contenteditable="true" class="table-input text-center"></div></td>
-                    <td><div contenteditable="true" class="table-input text-center"></div></td>
-                    <td><div contenteditable="true" class="table-input text-center qty"></div></td>
-                    <td><div contenteditable="true" class="table-input text-right price"></div></td>
-                    <td><div contenteditable="true" class="table-input text-right amt bold"></div></td>
-                    <td class="no-print action-btns">
-                        <button class="btn btn-add" onclick="addRow(this)" title="Add Row">+</button>
-                        <button class="btn btn-remove" onclick="removeRow(this)" title="Remove Row">-</button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-
-    <div class="section-spacing footer-grid">
         
-        <div class="footer-left">
-            <div class="flex-row" style="margin-bottom: 5px;">
-                <div style="width: 55%;">VATable Sales</div>
-                <div contenteditable="true" style="width: 40%; text-align: right;"></div>
+        <!-- Right Side Header Details -->
+        <div>
+            <div class="info-row">
+                <span class="info-label">DATE:</span>
+                <span class="info-value" contenteditable="true"></span>
             </div>
-            <div class="flex-row" style="margin-bottom: 5px;">
-                <div style="width: 55%;">VAT</div>
-                <div contenteditable="true" style="width: 40%; text-align: right;"></div>
+            <div class="info-row">
+                <span class="info-label">Terms:</span>
+                <span class="info-value" contenteditable="true"></span>
             </div>
-            <div class="flex-row" style="margin-bottom: 5px;">
-                <div style="width: 55%;">Zero-Rated Sales</div>
-                <div contenteditable="true" style="width: 40%; text-align: right;"></div>
+            <div class="info-row">
+                <span class="info-label">Reference no.:</span>
+                <span class="info-value" contenteditable="true"></span>
             </div>
-            <div class="flex-row" style="margin-bottom: 15px;">
-                <div style="width: 55%;">VAT-Exempt Sales</div>
-                <div contenteditable="true" style="width: 40%; text-align: right;"></div>
+        </div>
+    </div>
+
+    <!-- MAIN TABLE -->
+    <table id="invoice-table" oninput="calculateTotals()">
+        <thead>
+            <tr>
+                <th style="width: 32%;">Item Description / Nature of Service</th>
+                <th style="width: 14%;">Lot Number</th>
+                <th style="width: 12%;">Expiry Date</th>
+                <th style="width: 10%;">Quantity</th>
+                <th style="width: 12%;">Unit Price</th>
+                <th style="width: 14%;">AMOUNT</th>
+                <th class="no-print" style="width: 6%;">Action</th>
+            </tr>
+        </thead>
+        <tbody id="items-body">
+            <!-- Starting with 10 default rows -->
+            <script>
+                for(let i=0; i<10; i++) {
+                    document.write(`
+                    <tr class="item-row">
+                        <td><div contenteditable="true" class="table-input"></div></td>
+                        <td><div contenteditable="true" class="table-input text-center"></div></td>
+                        <td><div contenteditable="true" class="table-input text-center"></div></td>
+                        <td><div contenteditable="true" class="table-input text-center qty"></div></td>
+                        <td><div contenteditable="true" class="table-input text-right price"></div></td>
+                        <td><div contenteditable="true" class="table-input text-right amt bold"></div></td>
+                        <td class="no-print action-btns">
+                            <button class="btn btn-add" onclick="addRow(this)" title="Add Row">+</button>
+                            <button class="btn btn-remove" onclick="removeRow(this)" title="Remove Row">-</button>
+                        </td>
+                    </tr>
+                    `);
+                }
+            </script>
+        </tbody>
+    </table>
+
+    <!-- FOOTER COMPUTATIONS & SIGNATURES -->
+    <div class="footer-container">
+        
+        <!-- Footer Left -->
+        <div>
+            <div class="vat-breakdown">
+                <div class="vat-row">
+                    <span>VATable Sales</span>
+                    <span contenteditable="true" style="width: 100px; text-align: right;"></span>
+                </div>
+                <div class="vat-row">
+                    <span>VAT</span>
+                    <span contenteditable="true" style="width: 100px; text-align: right;"></span>
+                </div>
+                <div class="vat-row">
+                    <span>Zero-Rated Sales</span>
+                    <span contenteditable="true" style="width: 100px; text-align: right;"></span>
+                </div>
+                <div class="vat-row">
+                    <span>VAT-Exempt Sales</span>
+                    <span contenteditable="true" style="width: 100px; text-align: right;"></span>
+                </div>
             </div>
             
-            <div>Received the amount of <span contenteditable="true" style="width: 55%;"></span></div>
-            <div>SC/PWD/NAAC/MOV/ Solo Parent ID No.: <span contenteditable="true" style="width: 40%;"></span></div>
-            <div style="margin-bottom: 20px;">Signature: <span contenteditable="true" style="width: 75%;"></span></div>
-            
-            <div class="flex-row" style="margin-bottom: 20px;">
-                <div>PREPARED BY: <span contenteditable="true" style="width: 100px;"></span></div>
-                <div>CHECKED BY: <span contenteditable="true" style="width: 100px;"></span></div>
+            <div class="sign-row">
+                Received the amount of <span contenteditable="true" style="width: 200px;"></span>
+            </div>
+            <div class="sign-row">
+                SC/PWD/NAAC/MOV/ Solo Parent ID No.: <span contenteditable="true" style="width: 150px;"></span>
+            </div>
+            <div class="sign-row">
+                SC/PWD/NAAC/MOV/ Signature: <span contenteditable="true" style="width: 150px;"></span>
             </div>
             
-            <div style="margin-bottom: 30px;">DELIVERED BY: <span contenteditable="true" style="width: 70%;"></span></div>
-            
-            <div class="text-center">
-                <span class="signature-line" contenteditable="true"></span><br>
-                Cashier/Authorized Representative<br>
-                <span style="font-size: 10px;">(Received the above goods in good order and condition)</span>
+            <div class="sign-grid">
+                <div>
+                    <span class="bold">PREPARED BY:</span><br>
+                    <span contenteditable="true" style="width: 100%; display:inline-block; margin-top:5px;"></span>
+                </div>
+                <div>
+                    <span class="bold">CHECKED BY:</span><br>
+                    <span contenteditable="true" style="width: 100%; display:inline-block; margin-top:5px;"></span>
+                </div>
             </div>
         </div>
 
-        <div class="footer-right">
+        <!-- Footer Right -->
+        <div>
             <table class="totals-table" oninput="calculateTotals()">
                 <tr>
                     <td>Total Sales (VAT Inclusive)</td>
@@ -267,7 +361,7 @@
                     <td><div contenteditable="true" class="table-input text-right" id="net-vat">0.00</div></td>
                 </tr>
                 <tr>
-                    <td>Less: Discount<br><span style="font-size:10px;">(SC/PWD/NAAC/MOV/SP)</span></td>
+                    <td>Less: Discount <span style="font-weight:normal; font-size:10px;">(SC/PWD/NAAC/MOV/SP)</span></td>
                     <td><div contenteditable="true" class="table-input text-right" id="discount">0.00</div></td>
                 </tr>
                 <tr>
@@ -279,60 +373,62 @@
                     <td><div contenteditable="true" class="table-input text-right" id="withholding">0.00</div></td>
                 </tr>
                 <tr>
-                    <td class="bold">TOTAL AMOUNT DUE</td>
-                    <td><div contenteditable="true" class="table-input text-right bold" id="total-due" style="font-size: 14px;">0.00</div></td>
+                    <td class="bold" style="font-size: 13px;">TOTAL AMOUNT DUE</td>
+                    <td><div contenteditable="true" class="table-input text-right bold" id="total-due" style="font-size: 13px;">0.00</div></td>
                 </tr>
             </table>
+            
+            <div style="margin-top: 15px;">
+                <span class="bold">DELIVERED BY:</span> <span contenteditable="true" style="width: 200px;"></span>
+            </div>
+            
+            <div class="delivery-section">
+                <span class="signature-line" contenteditable="true"></span><br>
+                <span class="bold">Cashier/Authorized Representative</span><br>
+                <span>Received the above goods in good order and condition</span>
+            </div>
         </div>
     </div>
 
+    <!-- PRINTER INFO -->
     <div class="printer-info">
         100 bkits. (50 x 4) 0001-5000<br>
-        RLA Doo Sentor Printing Pheron VAT Reg. TIN: 194-783-105-00000<br>
+        RLA Doo Sentor Prinding Pheron VAT ling, TIH: 194-783-105-00000<br>
         ROWENA A DELOS SANTOS-Prop<br>
-        5225 Demetillo, Hen T De Leon 1442 City of Valenzuela NCR, Third District Philippines<br>
+        5225 Demetillo , Hen T De Leon 1442 Cty of Whimi NCR, Third Dippines<br>
         Printer's Accreditation: 024MP20240000000004<br>
         Date of Accreditation: 02/22/2026 Expiry Date: 02/21/2029<br>
         BIR Permit No. OCN 034AU20240000004487<br>
-        Date of ATP: 11/20/24<br>
+        Date of ATP 11/20/24<br>
         By: <span contenteditable="true" style="width: 100px;"></span>
     </div>
 
 </div>
 
+<!-- Auto Compute Script -->
 <script>
-    // --- ROW MANAGEMENT ---
     function addRow(btn) {
         const currentRow = btn.closest('tr');
         const newRow = currentRow.cloneNode(true);
-        
-        // Linisin ang laman ng bagong row
-        newRow.querySelectorAll('.table-input').forEach(div => {
-            div.innerText = '';
-        });
-        
-        // I-insert sa ibaba ng kasalukuyang row
+        newRow.querySelectorAll('.table-input').forEach(div => div.innerText = '');
         currentRow.parentNode.insertBefore(newRow, currentRow.nextSibling);
         calculateTotals();
     }
 
     function removeRow(btn) {
         const tbody = document.getElementById('items-body');
-        // Siguraduhing may matitirang kahit isang row
         if (tbody.querySelectorAll('tr').length > 1) {
             btn.closest('tr').remove();
             calculateTotals();
         } else {
-            alert("Hindi pwedeng burahin ang lahat ng rows. Dapat may matira kahit isa.");
+            alert("Minimum 1 row required.");
         }
     }
 
-    // --- AUTO COMPUTE LOGIC ---
     function calculateTotals() {
         let totalSales = 0;
         const rows = document.querySelectorAll('.item-row');
         
-        // 1. Compute Quantity x Unit Price per row
         rows.forEach(row => {
             const qtyText = row.querySelector('.qty').innerText.replace(/,/g, '');
             const priceText = row.querySelector('.price').innerText.replace(/,/g, '');
@@ -345,7 +441,6 @@
                 row.querySelector('.amt').innerText = amount.toFixed(2);
                 totalSales += amount;
             } else {
-                // Kung user manually nag-type sa AMOUNT
                 const manualAmt = parseFloat(row.querySelector('.amt').innerText.replace(/,/g, ''));
                 if(!isNaN(manualAmt)) totalSales += manualAmt;
             }
@@ -353,14 +448,12 @@
         
         document.getElementById('total-sales').innerText = totalSales.toFixed(2);
         
-        // 2. Compute VAT Breakdown (12% standard)
         const netVat = totalSales / 1.12;
         const vat = totalSales - netVat;
         
         document.getElementById('net-vat').innerText = netVat.toFixed(2);
         document.getElementById('less-vat').innerText = vat.toFixed(2);
         
-        // 3. Compute Final Amount Due
         const discountText = document.getElementById('discount').innerText.replace(/,/g, '');
         const addVatText = document.getElementById('add-vat').innerText.replace(/,/g, '');
         const whtText = document.getElementById('withholding').innerText.replace(/,/g, '');
@@ -369,7 +462,6 @@
         const addVat = parseFloat(addVatText) || 0;
         const wht = parseFloat(whtText) || 0;
         
-        // Net - Discount + Additional VAT - Withholding
         let totalDue = netVat - discount + addVat - wht;
         
         document.getElementById('total-due').innerText = totalDue.toFixed(2);
